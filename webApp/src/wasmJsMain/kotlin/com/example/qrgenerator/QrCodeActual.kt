@@ -79,29 +79,11 @@ actual fun generateQrMatrix(data: String): List<List<Boolean>> {
         ctx.font = '600 26px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
         ctx.fillText('5G  100%', 712, 110);
 
-        // 3. Navigation Bar
-        // Red back chevron (<)
-        ctx.strokeStyle = '#FF5252';
-        ctx.lineWidth = 6;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.beginPath();
-        ctx.moveTo(96, 210);
-        ctx.lineTo(80, 226);
-        ctx.lineTo(96, 242);
-        ctx.stroke();
+        // Note: Back button and QR STUDIO text are omitted as requested for clean export
 
-        // Q R   S T U D I O label
-        ctx.fillStyle = '#8E8E93';
-        ctx.textAlign = 'center';
-        ctx.font = '600 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.letterSpacing = '4px';
-        ctx.fillText('Q R   S T U D I O', 400, 232);
-        ctx.letterSpacing = '0px';
-
-        // 4. Title Text (wrapped & centered)
+        // 3. Title Text (wrapped & centered)
         ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold 30px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.font = 'bold 32px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
         ctx.textAlign = 'center';
         
         // Wrap title lines
@@ -119,24 +101,24 @@ actual fun generateQrMatrix(data: String): List<List<Boolean>> {
         }
         if (curLine) lines.push(curLine);
 
-        let titleY = 320;
+        let titleY = 250;
         for (let i = 0; i < lines.length; i++) {
             ctx.fillText(lines[i], 400, titleY);
-            titleY += 42;
+            titleY += 44;
         }
 
-        // 5. Styled QR Card Frame
-        const qrFrameSize = 640;
+        // 4. Styled QR Card Frame (Centered gracefully in the available phone area)
+        const qrFrameSize = 650;
         const qrFrameX = (800 - qrFrameSize) / 2;
-        const qrFrameY = Math.max(titleY + 30, 460);
+        const qrFrameY = Math.max(titleY + 60, 420);
 
         // Outer coral-red frame
-        drawRoundedRect(ctx, qrFrameX, qrFrameY, qrFrameSize, qrFrameSize, 60, '#FF5252', null, 0);
+        drawRoundedRect(ctx, qrFrameX, qrFrameY, qrFrameSize, qrFrameSize, 64, '#FF5252', null, 0);
 
         // Inner off-white card
-        const innerPad = 20;
+        const innerPad = 22;
         const innerSize = qrFrameSize - innerPad * 2;
-        drawRoundedRect(ctx, qrFrameX + innerPad, qrFrameY + innerPad, innerSize, innerSize, 48, '#FFF9F5', null, 0);
+        drawRoundedRect(ctx, qrFrameX + innerPad, qrFrameY + innerPad, innerSize, innerSize, 50, '#FFF9F5', null, 0);
 
         // Draw QR Code Modules from qrBits
         if (moduleCount > 0 && qrBits && qrBits.length >= moduleCount * moduleCount) {
@@ -162,15 +144,9 @@ actual fun generateQrMatrix(data: String): List<List<Boolean>> {
             }
         }
 
-        // 6. Save Button (Coral-Red Pill)
-        const btnY = 1480;
-        drawRoundedRect(ctx, 80, btnY, 640, 110, 55, '#FF5252', null, 0);
-        ctx.fillStyle = '#000000';
-        ctx.font = 'bold 34px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('Save', 400, btnY + 68);
+        // Note: Save button is omitted as requested for clean export
 
-        // 7. Home Indicator Bar
+        // 5. Home Indicator Bar
         drawRoundedRect(ctx, 270, 1640, 260, 10, 5, 'rgba(255, 255, 255, 0.25)', null, 0);
 
         // Download canvas as PNG
